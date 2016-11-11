@@ -1,7 +1,7 @@
 <?php
 // include database connection only once,
 // it could be possible that the connection will be loaded at another DAO
-include_once "db_connection.php";
+include_once "database.php";
 
 // Database Layer for City
 class CityDAO {
