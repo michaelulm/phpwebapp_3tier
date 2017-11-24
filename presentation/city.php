@@ -4,46 +4,61 @@
 // we will include business layer to load business logic
 include("business/" . DB_OBJECT . ".php");
 
+// prepare form title
+$formTitle = (isset($_GET["cityid"]) ? "Edit" : "Insert" ) . " City";
+
 // initialize City Model from Business Logic
 $city = new City();
+
 // now load all cities
 $data = $city->getAllCities();
 
-// prepare HTML Table, and create HTML Table Structure
-function getHTMLTable($tabledata) {
-  $html = '<table id="citiestable">';
-  $html .= '<thead><tr>';
-  $html .= '<th>name</th>';
-  $html .= '</tr></thead>';
+// load possible current city to edit cityname
+$editValue = "";
+if($_GET["cityid"]){
+    $editValue = $city->getCityName($_GET["cityid"]);
+}
 
-  foreach($tabledata as $city) {
-    $html .= '<tbody><tr>';
-    $html .= '<td>' . $city['cityname'] . '</td>';
-    // $html .= '<td>' . $city['major'] . '</td>'; // TODO: Extend example with other city information and extend city table
-    $html .= '</tr></tbody>';
-  }
 
-  $html .= '</table>';
+// prepare HTML Output
+function getHTMLOutput( $data ) {
+    $html = "";
+    $html .= '<div class="list-group">';
 
-  return $html;
+    $urlParams = array();
+    foreach($_GET as $key => $value) {
+        $urlParams[$key] = $value;
+    }
+
+    foreach($data as $city) {
+
+        $url = "?";
+        $urlParams["cityid"] = $city["cityid"];
+        foreach($urlParams as $key => $value) {
+            $url .= "$key=$value&";
+        }
+
+        $html .= '
+					<a class="list-group-item" href="'.$url.'"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> '.$city['cityname'].'</a>
+                    ';
+    }
+
+    $html .= '</div>';
+
+    return $html;
 }
 
 // the follow HTML Script has only a few php calls, benefit => clear structure, easy to read
-?>
-<html>
- <head> 
-   <title>Cities</title>
- </head>
- <body>
- 
- 
- <h2>List of all cities</h2>
- <?php echo getHTMLTable($data); ?><br />
- 
- <h2>Insert new City</h2>
- <form method="post" >
-   <input type="text" name="cityname" placeholder="type in new cityname" />
-	<input type="submit" value="Submit"/>
- </form>
- </body>
-</html>
+ ?>
+
+
+    <h2>List of all cities</h2>
+    <?php echo getHTMLOutput($data); ?><br />
+
+    <h2><?php echo $formTitle;?></h2>
+    <form method="post" >
+        <input type="hidden" name="cityid" value="<?php echo isset($_GET["cityid"]) ? $_GET["cityid"] : "";?>" />
+        <input type="text" name="cityname" placeholder="type in new cityname" <?php echo strlen($editValue) > 0 ? "value='$editValue'" : "";?> />
+        <input type="checkbox" name="citydelete" value="anyvalue">
+        <input type="submit" value="Submit"/>
+    </form>

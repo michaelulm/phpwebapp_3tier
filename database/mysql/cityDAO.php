@@ -20,14 +20,14 @@ class CityDAO {
 	/*
 	 * Create a new City with cityname
 	 */
-	public function create($cityname) {
+	public function createCity($cityname) {
 		$stmt = $this->connection->prepare( "INSERT INTO city (cityname) VALUES (?);" );
 		$stmt->bind_param( 's', $cityname );
 		if ($stmt->execute()) {
 			echo "Insert complete";
 			return 1;
 		} else {
-			echo "City-Create-ERROR: " . $insert . "<br>" . mysqli_error ( $this->connection );
+			echo "City-Create-ERROR: INSERT STATEMENT<br>" . mysqli_error ( $this->connection );
 			return - 1;
 		}
 	}
@@ -35,7 +35,7 @@ class CityDAO {
 	/*
 	 * Get all informations of a City by its name
 	 */
-	public function read($cityname) {
+	public function readCity($cityname) {
 		$stmt = $this->connection->prepare( "SELECT * FROM person WHERE cityname = ?;" );
 		$stmt->bind_param( 's', $cityname );
 		
@@ -54,7 +54,7 @@ class CityDAO {
 	/*
 	 * Get all Cities in the Database
 	 */
-	public function readAll() {
+	public function readAllCities() {
 		$select = "SELECT * FROM city;";
 		if ($this->connection == null) {
 			echo "Connection not initialized!";
@@ -70,22 +70,6 @@ class CityDAO {
 			}
 		} else {
 			echo "Resultset leer/nicht definiert!";
-		}
-	}
-
-	/*
-	 * Update the informations of a City, identified by its name.
-	 */
-	public function update($cityname) {
-		$stmt = $this->connection->prepare ( "UPDATE city SET cityname=? WHERE cityname = ?;" );
-		$stmt->bind_param ( 'ss', $cityname, $cityname );
-		
-		if ($stmt->execute ()) {
-			echo "Update complete";
-			return 1;
-		} else {
-			echo "City-Update-ERROR: " . $stmt . "<br>" . mysqli_error ( $this->connection );
-			return -1;
 		}
 	}
 	
