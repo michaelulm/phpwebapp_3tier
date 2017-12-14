@@ -4,6 +4,8 @@
 
     if(isset($_GET["view"])){
         // get required view otherwise define standard view, e.g. city
+        // TODO create FALLBACK mechanism
+        // TODO improve this handling -> because at using multiple models in view this doesn't so well
         define('DB_OBJECT', isset($_GET["view"]) ? $_GET["view"] : "FALLBACK");
     }
 
@@ -41,6 +43,7 @@
 		TODO:
 		- Use of php autoload
 		- define some helper files, e.g. general getHTMLTable Method
+        - simplify building html elements
 		- OOP with abstract base class
 		- add singleton at database connection handling
 		- postgres error handling

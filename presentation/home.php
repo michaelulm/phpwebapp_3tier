@@ -1,9 +1,5 @@
 ﻿<?php
 // PRESENTATION LAYER EXAMPLE
-
-// we will include business layer to load business logic
-include("business/" . DB_OBJECT . ".php");
-
 ?>
 
     <div class="starter-template">

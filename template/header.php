@@ -12,8 +12,7 @@
     // to create dynamic navigation menu
     $navItems["Home"]           = "home";
     $navItems["City"]           = "city";
-    $navItems["Measurements"]   = "measurements";
-
+    $navItems["Country"]        = "country";
 
     $headerTitle    = APP_NAME;
     $navBarItems    = "";
