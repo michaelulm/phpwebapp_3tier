@@ -1,7 +1,7 @@
 <?php
 
     // https://stackoverflow.com/questions/3429262/get-base-directory-of-current-script
-    define( "BASE_PATH", "http://" . $_SERVER[HTTP_HOST] . dirname($_SERVER['REQUEST_URI']));
+    define( "BASE_PATH", "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']));
 
     // integrated bootstrap starter template
     // https://getbootstrap.com/docs/4.0/examples/starter-template/
