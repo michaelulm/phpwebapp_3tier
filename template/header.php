@@ -1,7 +1,9 @@
 <?php
 
+    // workaround without index.php
+    $dir = dirname($_SERVER['REQUEST_URI']) == "\\" ? $_SERVER['REQUEST_URI'] : dirname($_SERVER['REQUEST_URI']);
     // https://stackoverflow.com/questions/3429262/get-base-directory-of-current-script
-    define( "BASE_PATH", "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']));
+    define( "BASE_PATH", "http://" . $_SERVER['HTTP_HOST'] . $dir);
 
     // integrated bootstrap starter template
     // https://getbootstrap.com/docs/4.0/examples/starter-template/
